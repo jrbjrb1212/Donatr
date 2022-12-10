@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.donatr.databinding.ActivityMainBinding
 import android.widget.Toast;
+import com.example.donatr.summary.MoreInfoDialog
 import com.example.donatr.summary.SummaryActivity
 import java.lang.Math.abs
 
@@ -83,16 +84,19 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             else{
                 Toast.makeText(this, "Left Swipe", Toast.LENGTH_SHORT).show()
             }
-        } else if (kotlin.math.abs(valueY) > MIN_DISTANCE){
-            if( y1 < y2){
+        }
+        if (kotlin.math.abs(valueY) > MIN_DISTANCE){
+            if(y2 > y1){
                 onDownSwipe()
             }
         }
     }
 
     private fun onDownSwipe() {
+        Toast.makeText(this, "Down Swipe", Toast.LENGTH_LONG).show()
+        val infoDialog = MoreInfoDialog()
+        infoDialog.show(supportFragmentManager, "More Info Dialog")
 
-        val fundDialog = FundAddDiag()
     }
 
 
