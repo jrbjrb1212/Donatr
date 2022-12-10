@@ -6,19 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Money Available: $"
+    <include
+        android:id="@+id/entireCharityInfo"
+        layout="@layout/card_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/scroller"
-        layout="@layout/card_view"
-        />
+    <Button
+        android:id="@+id/fundDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Funds"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/entireCharityInfo"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/transHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transaction History"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entireCharityInfo" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
