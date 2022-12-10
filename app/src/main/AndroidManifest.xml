@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Donatr"
         tools:targetApi="31">
+
+        <activity android:name=".summary.SummaryActivity"
+        android:exported="false"
+        android:label="@string/title_activity_summary"
+        android:theme="@style/Theme.Donatr.NoActionBar">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+         </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">

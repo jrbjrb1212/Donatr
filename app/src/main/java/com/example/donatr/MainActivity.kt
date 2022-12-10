@@ -1,19 +1,15 @@
 package com.example.donatr
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import com.example.donatr.databinding.ActivityMainBinding
+import android.widget.Toast;
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var swipeCost = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +17,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.fundDialog.setOnClickListener {
+            val shopDialog = FundAddDiag()
+        }
+
     }
+
+    fun sufficientFundCheck() : Boolean {
+        var currMoneyAmt = binding.entireCharityInfo.moneyAvailable.text.substring(2).toInt()!!
+        return if (currMoneyAmt < swipeCost){
+            insufficientFundsToast()
+            false
+        } else{
+            true
+        }
+    }
+
+    private fun insufficientFundsToast() {
+        Toast.makeText(
+            applicationContext,
+            "Insufficient Funds in Account to Make Swipe",
+            Toast.LENGTH_LONG).show();
+
+    }
+
+
 }
