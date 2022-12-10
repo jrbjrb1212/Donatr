@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.fundDialog.setOnClickListener {
-            val shopDialog = FundAddDiag()
+            val fundDialog = FundAddDiag()
         }
 
     }
@@ -38,6 +38,16 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             "Insufficient Funds in Account to Make Swipe",
             Toast.LENGTH_LONG).show();
+
+    }
+
+    private fun updateCardDetails(){
+        // TODO: add firebase support to get the next charity information
+        // TODO: charityObject is the data object for this
+//        binding.entireCharityInfo.charityName = newCharityNameFromFireBase
+//        binding.entireCharityInfo.charityPic = sameAbove
+//        binding.entireCharityInfo.charityType = sameAbove
+//        binding.entireCharityInfo.shortBioCharity = sameAbove
 
     }
 
