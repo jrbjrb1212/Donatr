@@ -31,11 +31,11 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.fundDialog.setOnClickListener {
+        binding.btnAddFunds.setOnClickListener {
             val fundDialog = FundAddDiag()
         }
 
-        binding.transHistory.setOnClickListener {
+        binding.btnTransHist.setOnClickListener {
             val intent = Intent(applicationContext, SummaryActivity::class.java)
             startActivity(intent)
         }
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
 
     fun sufficientFundCheck() : Boolean {
-        var currMoneyAmt = binding.entireCharityInfo.moneyAvailable.text.substring(2).toInt()!!
+        var currMoneyAmt = binding.tvBalance.text.substring(2).toInt()!!
         return if (currMoneyAmt < swipeCost){
             insufficientFundsToast()
             false
