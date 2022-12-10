@@ -9,13 +9,12 @@ import com.example.donatr.databinding.ActivityMainBinding
 import android.widget.Toast;
 import com.example.donatr.summary.MoreInfoDialog
 import com.example.donatr.summary.SummaryActivity
-import java.lang.Math.abs
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     private lateinit var gestureDetector: GestureDetector
     private lateinit var binding: ActivityMainBinding
-    private var swipeCost = 1
     var x2 : Float = 0.0f
     var x1 : Float = 0.0f
     var y2 : Float = 0.0f
@@ -23,6 +22,8 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     companion object {
         const val MIN_DISTANCE = 150
+        var available_balance: Double = 0.0
+        var swipeCost = 1
     }
 
 
@@ -32,16 +33,42 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // TODO
+        // testing remove later
+        binding.tvBalance.text = binding.tvBalance.text.toString() + available_balance.toString()
+
+
+        mainActivityBtnBindingsInit()
+
+        gestureDetector = GestureDetector(this,this)
+    }
+
+    private fun mainActivityBtnBindingsInit() {
         binding.btnAddFunds.setOnClickListener {
-            val fundDialog = FundAddDiag()
+            fundAddDialog("Please add funds below")
         }
+
+
+        binding.btnMore.setOnClickListener{
+            onDownSwipe()
+        }
+
 
         binding.btnTransHist.setOnClickListener {
             val intent = Intent(applicationContext, SummaryActivity::class.java)
             startActivity(intent)
         }
+    }
 
-        gestureDetector = GestureDetector(this,this)
+    private fun fundAddDialog(contextType: String) {
+        runBlocking {
+            val fundDialog = FundAddDiag(contextType)
+            fundDialog.show(supportFragmentManager, "Add Funds")
+        }
+    }
+
+    fun updateShown(){
+        binding.tvBalance.text = "$ $available_balance"
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -77,11 +104,16 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             // right swipe
             // TODO: Add right swipe functionality
             if (x2 > x1){
+                val withUpdateBalance = true
+                updateCardDetails(withUpdateBalance)
+                //TODO remove before submitting final project
                 Toast.makeText(this, "Right Swipe", Toast.LENGTH_SHORT).show()
             }
             // left swipe
             // TODO: Add left swipe functionality
             else{
+                val withUpdateBalance = false
+                updateCardDetails(withUpdateBalance)
                 Toast.makeText(this, "Left Swipe", Toast.LENGTH_SHORT).show()
             }
         }
@@ -96,36 +128,33 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         Toast.makeText(this, "Down Swipe", Toast.LENGTH_LONG).show()
         val infoDialog = MoreInfoDialog()
         infoDialog.show(supportFragmentManager, "More Info Dialog")
-
     }
 
 
-    fun sufficientFundCheck() : Boolean {
-        var currMoneyAmt = binding.tvBalance.text.substring(2).toInt()!!
+    private fun sufficientFundCheck() : Boolean {
+        var currMoneyAmt = available_balance
         return if (currMoneyAmt < swipeCost){
-            insufficientFundsToast()
+            fundAddDialog("Insufficient funds detected. Please add additional funds to continue donating.")
             false
         } else{
             true
         }
     }
 
-    private fun insufficientFundsToast() {
-        Toast.makeText(
-            applicationContext,
-            "Insufficient Funds in Account to Make Swipe",
-            Toast.LENGTH_LONG).show();
 
-    }
-
-    private fun updateCardDetails(){
+    private fun updateCardDetails(withUpdateBalance: Boolean){
         // TODO: add firebase support to get the next charity information
         // TODO: charityObject is the data object for this
+        if (sufficientFundCheck()){
+            if (withUpdateBalance) {
+                available_balance -= swipeCost
+                binding.tvBalance.text = "$ $available_balance"
+            }
 //        binding.entireCharityInfo.charityName = newCharityNameFromFireBase
 //        binding.entireCharityInfo.charityPic = sameAbove
 //        binding.entireCharityInfo.charityType = sameAbove
 //        binding.entireCharityInfo.shortBioCharity = sameAbove
-
+        }
     }
 
     override fun onDown(p0: MotionEvent?): Boolean {
