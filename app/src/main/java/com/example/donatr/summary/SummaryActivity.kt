@@ -17,5 +17,9 @@ class SummaryActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
         binding.toolbarLayout.title = title
+
+        binding.fab.setOnClickListener{
+            finish()
+        }
     }
 }

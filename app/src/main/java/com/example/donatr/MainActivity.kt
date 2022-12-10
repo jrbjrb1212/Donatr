@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.donatr.databinding.ActivityMainBinding
 import android.widget.Toast;
+import com.example.donatr.summary.SummaryActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.fundDialog.setOnClickListener {
             val fundDialog = FundAddDiag()
+        }
+
+        binding.transHistory.setOnClickListener {
+            val intent = Intent(applicationContext, SummaryActivity::class.java)
+            startActivity(intent)
         }
 
     }
