@@ -61,27 +61,38 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             1 -> {
                 x2 = event.x
                 y2 = event.y
-                detectHorzontialSwipe(x1, x2, y1, y2)
+                detectHorizontalSwipe(x1, x2, y1, y2)
             }
         }
     }
 
 
-    private fun detectHorzontialSwipe(x1: Float, x2: Float, y1: Float, y2: Float) {
+    private fun detectHorizontalSwipe(x1: Float, x2: Float, y1: Float, y2: Float) {
         val valueX : Float = x2-x1
         val valueY : Float = y2-y1
 
         // horizontal swipe
         if(kotlin.math.abs(valueX) > MIN_DISTANCE){
             // right swipe
+            // TODO: Add right swipe functionality
             if (x2 > x1){
                 Toast.makeText(this, "Right Swipe", Toast.LENGTH_SHORT).show()
             }
             // left swipe
+            // TODO: Add left swipe functionality
             else{
                 Toast.makeText(this, "Left Swipe", Toast.LENGTH_SHORT).show()
             }
+        } else if (kotlin.math.abs(valueY) > MIN_DISTANCE){
+            if( y1 < y2){
+                onDownSwipe()
+            }
         }
+    }
+
+    private fun onDownSwipe() {
+
+        val fundDialog = FundAddDiag()
     }
 
 
