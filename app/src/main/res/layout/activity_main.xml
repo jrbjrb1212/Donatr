@@ -7,7 +7,6 @@
     android:layout_height="match_parent">
 
     <include
-        android:background="@drawable/pressed_layout"
         android:id="@+id/entireCharityInfo"
         layout="@layout/card_view"
         app:layout_constraintEnd_toEndOf="parent"
