@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "55757087359",
+    "project_id": "donatr-17d80",
+    "storage_bucket": "donatr-17d80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55757087359:android:3ba7910ea80010b894554a",
+        "android_client_info": {
+          "package_name": "com.example.donatr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55757087359-sjsoqjse374v0mhg9ll8o6hj0ofk044t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHxika67gI1Rzk-1tUIXhutesQtNg1zHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55757087359-sjsoqjse374v0mhg9ll8o6hj0ofk044t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
