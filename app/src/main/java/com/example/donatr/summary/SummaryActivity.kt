@@ -35,6 +35,10 @@ class SummaryActivity : AppCompatActivity() {
         binding.toolbarLayout.title = title
 
         queryTransactions()
+
+        binding.fab.setOnClickListener{
+            finish()
+        }
     }
 
     var snapshotListener: ListenerRegistration? = null
@@ -73,8 +77,5 @@ class SummaryActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         snapshotListener?.remove()
-        binding.fab.setOnClickListener{
-            finish()
-        }
     }
 }
