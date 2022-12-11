@@ -2,7 +2,6 @@ package com.example.donatr.summary
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -34,7 +33,7 @@ class MoreInfoDialog (private val workingCharity : Charity) : DialogFragment() {
         )
         infoViewBinding.tvCharityName.text = workingCharity.title
         infoViewBinding.tvType.text = workingCharity.type
-        infoViewBinding.tvLocation.text = "New York City"
+        infoViewBinding.tvLocation.text = getString(R.string.NYC)
         infoViewBinding.tvDesc.text = workingCharity.longIntro
     }
 

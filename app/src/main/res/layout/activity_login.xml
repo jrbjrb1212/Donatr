@@ -31,9 +31,10 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:text="lus2@carleton.edu" />
+                android:text="@string/lus2_carleton_edu" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,9 +48,9 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:text="123456" />
+                android:text="@string/_123456" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -60,7 +61,7 @@
             android:layout_marginBottom="12dp"
             android:backgroundTint="#8C7B6E"
             android:padding="12dp"
-            android:text="Login" />
+            android:text="@string/login" />
 
         <Button
             android:id="@+id/btnRegister"
@@ -68,7 +69,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#8C7B6E"
             android:padding="12dp"
-            android:text="Register" />
+            android:text="@string/register" />
 
     </LinearLayout>
 </ScrollView>
