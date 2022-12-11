@@ -16,6 +16,8 @@ class SummaryActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySummaryBinding
 
     private lateinit var adapter: TransactionAdapter
+    var snapshotListener: ListenerRegistration? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,6 @@ class SummaryActivity : AppCompatActivity() {
         }
     }
 
-    var snapshotListener: ListenerRegistration? = null
 
     fun queryTransactions() {
         val queryTransactions = FirestoreAdapter(this).getCollection(
@@ -72,6 +73,7 @@ class SummaryActivity : AppCompatActivity() {
 
         snapshotListener = queryTransactions?.addSnapshotListener(eventListener)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

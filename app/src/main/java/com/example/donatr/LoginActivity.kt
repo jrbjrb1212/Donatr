@@ -7,9 +7,7 @@ import android.widget.Toast
 import com.example.donatr.adapter.FirestoreAdapter
 import com.example.donatr.data.User
 import com.example.donatr.databinding.ActivityLoginBinding
-import com.example.donatr.summary.SummaryActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     fun loginUser() {
         if (isFormValid()) {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(
@@ -79,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
 
-//                startActivity(Intent(this, MainActivity::class.java))
                 startActivity(Intent(this, MainActivity::class.java))
             }.addOnFailureListener{
                 Toast.makeText(
@@ -90,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
 
     fun isFormValid(): Boolean {
         return when {

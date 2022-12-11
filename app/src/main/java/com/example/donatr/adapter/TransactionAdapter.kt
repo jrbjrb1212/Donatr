@@ -22,10 +22,12 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
     var  transactionsList = mutableListOf<Transaction>()
 
+
     constructor(context: Context, uid: String) : super() {
         this.context = context
         this.currentUid = uid
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = TransactionRowBinding
@@ -33,14 +35,17 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
         return ViewHolder(binding)
     }
 
+
     override fun getItemCount(): Int {
         return transactionsList.size
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var transaction = transactionsList.get(holder.adapterPosition)
         holder.bind(transaction)
     }
+
 
     fun addTransaction(transaction: Transaction) {
 
@@ -48,6 +53,7 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
         notifyItemInserted(transactionsList.lastIndex)
     }
+
 
     inner class ViewHolder(val binding: TransactionRowBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(transaction: Transaction) {
@@ -70,5 +76,4 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
             binding.tvAmount.text = transaction.amount.toString()
         }
     }
-
 }

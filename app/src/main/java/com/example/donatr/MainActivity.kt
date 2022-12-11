@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         var swipeCost = 1
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,20 +54,28 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         gestureDetector = GestureDetector(this,this)
     }
 
-    private fun mainActivityBtnBindingsInit() {
-        binding.btnAddFunds.setOnClickListener {
-            fundAddDialog(getString(R.string.addFundsBasic))
-        }
 
+    private fun mainActivityBtnBindingsInit() {
         binding.btnMore.setOnClickListener{
             onDownSwipe()
         }
 
+        mainActivityBtnBindingsInitBottomBtns()
+        mainActivityBtnBindingsInitFABS()
+    }
+
+
+    private fun mainActivityBtnBindingsInitBottomBtns(){
         binding.btnTransHist.setOnClickListener {
             val intent = Intent(applicationContext, SummaryActivity::class.java)
             startActivity(intent)
         }
+        binding.btnAddFunds.setOnClickListener {
+            fundAddDialog(getString(R.string.addFundsBasic))
+        }
+    }
 
+    private fun mainActivityBtnBindingsInitFABS(){
         binding.fabSwipeLeft.setOnClickListener{
             leftSwipe()
         }
@@ -75,6 +84,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             rightSwipe()
         }
     }
+
 
     fun getCharities() {
         Log.d("qwer", "getChar")
@@ -90,6 +100,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             }
     }
 
+
     fun updateUserBalance() {
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         FirestoreAdapter(this).getCollection(
@@ -100,6 +111,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
                 updateShown()
             }
     }
+
 
     fun changeUserBalance(newBalance: Double) {
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -116,15 +128,17 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             }
     }
 
+
     private fun fundAddDialog(contextType: String) {
         val fundDialog = FundAddDiag(contextType)
         fundDialog.show(supportFragmentManager, getString(R.string.addFundsBasicv2))
-
     }
+
 
     fun updateShown(){
         binding.tvBalance.text = getString(R.string.dollarSign) + "$available_balance"
     }
+
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
@@ -133,6 +147,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
         return super.onTouchEvent(event)
     }
+
 
     private fun swipeActionListener(event: MotionEvent?) {
         when (event?.action){
@@ -154,19 +169,25 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         val valueX : Float = x2-x1
         val valueY : Float = y2-y1
 
-        // horizontal swipe
-        if(kotlin.math.abs(valueX) > MIN_DISTANCE){
-            // right swipe
-            if (x2 > x1) rightSwipe()
-            // left swipe
-            else leftSwipe()
-        }
-        if (kotlin.math.abs(valueY) > MIN_DISTANCE){
-            if(y2 > y1){
-                onDownSwipe()
-            }
+        if(kotlin.math.abs(valueX) > MIN_DISTANCE) horizontalSwipeHandle()
+        if (kotlin.math.abs(valueY) > MIN_DISTANCE) verticalSwipeHandle()
+    }
+
+
+    private fun verticalSwipeHandle() {
+        if(y2 > y1){
+            onDownSwipe()
         }
     }
+
+
+    private fun horizontalSwipeHandle() {
+        // right swipe
+        if (x2 > x1) rightSwipe()
+        // left swipe
+        else leftSwipe()
+    }
+
 
     private fun leftSwipe() {
         if (available_balance >= swipeCost) leftAnimation()
@@ -179,6 +200,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
+
     private fun rightSwipe() {
         if (available_balance >= swipeCost) rightAnimation()
         Timer("Update", true).schedule(300){
@@ -189,6 +211,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
 
     }
+
 
     private fun rightAnimation() {
         val swipeAnimation = TranslateAnimation(
@@ -206,6 +229,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         binding.cardView.startAnimation(swipeAnimation)
     }
 
+
     private fun leftAnimation() {
         val swipeAnimation = TranslateAnimation(
             Animation.RELATIVE_TO_SELF,
@@ -222,11 +246,11 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         binding.cardView.startAnimation(swipeAnimation)
     }
 
+
     private fun onDownSwipe() {
         val infoDialog = MoreInfoDialog(charities[charityIndex])
         infoDialog.show(supportFragmentManager, getString(R.string.MoreInfoDiag))
     }
-
 
 
     private fun sufficientFundCheck() : Boolean {
@@ -239,6 +263,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
+
     private fun firstLoadCardDetails() {
         Glide.with(this).load(charities[charityIndex].imgUrl).into(
             binding.charityPic
@@ -247,6 +272,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         binding.charityType.text = charities[charityIndex].type
         binding.shortBioCharity.text = charities[charityIndex].shortIntro
     }
+
 
     private fun updateCardDetails(withUpdateBalance: Boolean){
         if (sufficientFundCheck()){
@@ -261,27 +287,31 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
+
     override fun onDown(p0: MotionEvent?): Boolean {
         return false
     }
 
+
     override fun onShowPress(p0: MotionEvent?) {
     }
+
 
     override fun onSingleTapUp(p0: MotionEvent?): Boolean {
         return false
     }
 
+
     override fun onScroll(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean {
         return false
     }
 
+
     override fun onLongPress(p0: MotionEvent?) {
     }
+
 
     override fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean {
         return false
     }
-
-
 }

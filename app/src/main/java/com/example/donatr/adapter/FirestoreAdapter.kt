@@ -21,6 +21,7 @@ class FirestoreAdapter {
         this.context = context
     }
 
+
     fun addToCollection(collection: String, document: Any) {
         val collection = db.collection(collection)
         collection.add(document)
@@ -32,6 +33,7 @@ class FirestoreAdapter {
                 ).show()
             }
     }
+
 
     fun getCollection(collection: String): CollectionReference? {
         return db.collection(collection)

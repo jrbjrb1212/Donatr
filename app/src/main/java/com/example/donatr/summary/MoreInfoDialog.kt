@@ -13,6 +13,7 @@ class MoreInfoDialog (private val workingCharity : Charity) : DialogFragment() {
 
     private lateinit var infoViewBinding: MoreInfoDialogBinding
 
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val disciptBuilder = AlertDialog.Builder(requireContext())
 
@@ -27,6 +28,7 @@ class MoreInfoDialog (private val workingCharity : Charity) : DialogFragment() {
         return disciptBuilder.create()
     }
 
+
     private fun updateView() {
         Glide.with(requireContext()).load(workingCharity.imgUrl).into(
             infoViewBinding.imageView
@@ -37,6 +39,7 @@ class MoreInfoDialog (private val workingCharity : Charity) : DialogFragment() {
         infoViewBinding.tvDesc.text = workingCharity.longIntro
     }
 
+
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -46,5 +49,4 @@ class MoreInfoDialog (private val workingCharity : Charity) : DialogFragment() {
             dialog.dismiss()
         }
     }
-
 }

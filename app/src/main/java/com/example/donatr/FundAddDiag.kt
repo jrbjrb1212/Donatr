@@ -27,6 +27,7 @@ class FundAddDiag (private val contextType : String) : DialogFragment() {
         return disciptBuilder.create()
     }
 
+
     override fun onResume() {
         super.onResume()
         val dialog = dialog as AlertDialog
@@ -42,13 +43,14 @@ class FundAddDiag (private val contextType : String) : DialogFragment() {
         }
     }
 
+
     private fun resetView() {
         fundAddFundsDiagBinding.moneyAddTxt.setText(getString(R.string.dollarSign))
         fundAddFundsDiagBinding.moneyAddTxt.error = getString(R.string.validAmtPrompt)
     }
 
+
     private fun checkView(): Boolean{
-        fundAddFundsDiagBinding.paymentContextMsg
         try{
             if (fundAddFundsDiagBinding.moneyAddTxt.text.isEmpty() || fundAddFundsDiagBinding.moneyAddTxt.length() < 3) {
                 resetView()
