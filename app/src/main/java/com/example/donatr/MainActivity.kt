@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     companion object {
         const val MIN_DISTANCE = 150
-        var available_balance: Double = 5.0
+        var available_balance: Double = 0.0
         var swipeCost = 1
     }
 
