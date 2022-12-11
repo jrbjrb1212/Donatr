@@ -2,30 +2,38 @@ package com.example.donatr
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.donatr.databinding.ActivityMainBinding
 import android.widget.Toast;
+import com.example.donatr.adapter.FirestoreAdapter
+import com.example.donatr.data.Charity
+import com.example.donatr.data.User
 import com.example.donatr.summary.MoreInfoDialog
 import com.example.donatr.summary.SummaryActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     private lateinit var gestureDetector: GestureDetector
     private lateinit var binding: ActivityMainBinding
+
+    private var charities: MutableList<Charity> = mutableListOf()
+    private var charityIndex = 0
+
     var x2 : Float = 0.0f
     var x1 : Float = 0.0f
     var y2 : Float = 0.0f
     var y1 : Float = 0.0f
 
     companion object {
-        const val MIN_DISTANCE = 150
         var available_balance: Double = 0.0
+        const val MIN_DISTANCE = 150
         var swipeCost = 1
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +43,9 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
         // TODO
         // testing remove later
-        binding.tvBalance.text = binding.tvBalance.text.toString() + available_balance.toString()
+        updateUserBalance()
 
+        getCharities()
 
         mainActivityBtnBindingsInit()
 
@@ -58,6 +67,46 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             val intent = Intent(applicationContext, SummaryActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    fun getCharities() {
+        Log.d("qwer", "getChar")
+        FirestoreAdapter(this).getCollection(
+            FirestoreAdapter.COLLECTION_CHARITIES
+        )!!.get()
+            .addOnSuccessListener {
+                it.documents.forEach{
+                    charities.add(it.toObject(Charity::class.java)!!)
+                }
+
+                firstLoadCardDetails()
+            }
+    }
+
+    fun updateUserBalance() {
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        FirestoreAdapter(this).getCollection(
+            FirestoreAdapter.COLLECTION_USERS
+        )!!.whereEqualTo("uid", uid).get()
+            .addOnSuccessListener {
+                MainActivity.available_balance = it.documents[0].toObject(User::class.java)!!.balance
+                updateShown()
+            }
+    }
+
+    fun changeUserBalance(newBalance: Double) {
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        val collection = FirestoreAdapter(this).getCollection(
+            FirestoreAdapter.COLLECTION_USERS
+        )!!
+
+        collection.whereEqualTo("uid", uid).get()
+            .addOnSuccessListener {
+                collection.document(it.documents[0].id).update(
+                    "balance", newBalance
+                )
+                updateUserBalance()
+            }
     }
 
     private fun fundAddDialog(contextType: String) {
@@ -141,19 +190,26 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
+    private fun firstLoadCardDetails() {
+        binding.charityName.text = charities[charityIndex].title
+        binding.charityType.text = charities[charityIndex].type
+        binding.shortBioCharity.text = charities[charityIndex].shortIntro
+    }
 
     private fun updateCardDetails(withUpdateBalance: Boolean){
         // TODO: add firebase support to get the next charity information
         // TODO: charityObject is the data object for this
         if (sufficientFundCheck()){
+            Log.d("qwer", "qaz")
             if (withUpdateBalance) {
-                available_balance -= swipeCost
+                changeUserBalance(available_balance - swipeCost)
                 binding.tvBalance.text = "$ $available_balance"
             }
-//        binding.entireCharityInfo.charityName = newCharityNameFromFireBase
-//        binding.entireCharityInfo.charityPic = sameAbove
-//        binding.entireCharityInfo.charityType = sameAbove
-//        binding.entireCharityInfo.shortBioCharity = sameAbove
+
+            charityIndex  = (charityIndex + 1) % charities.size
+            binding.charityName.text = charities[charityIndex].title
+            binding.charityType.text = charities[charityIndex].type
+            binding.shortBioCharity.text = charities[charityIndex].shortIntro
         }
     }
 
