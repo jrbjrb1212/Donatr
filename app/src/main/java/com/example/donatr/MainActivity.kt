@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.runBlocking
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import com.bumptech.glide.Glide
 
 
 class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -237,6 +238,9 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     }
 
     private fun firstLoadCardDetails() {
+        Glide.with(this).load(charities[charityIndex].imgUrl).into(
+            binding.charityPic
+        )
         binding.charityName.text = charities[charityIndex].title
         binding.charityType.text = charities[charityIndex].type
         binding.shortBioCharity.text = charities[charityIndex].shortIntro
@@ -264,9 +268,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             }
 
             charityIndex  = (charityIndex + 1) % charities.size
-            binding.charityName.text = charities[charityIndex].title
-            binding.charityType.text = charities[charityIndex].type
-            binding.shortBioCharity.text = charities[charityIndex].shortIntro
+            firstLoadCardDetails()
         }
     }
 
