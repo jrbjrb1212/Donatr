@@ -4,10 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.donatr.adapter.FirestoreAdapter
+import com.example.donatr.data.User
 import com.example.donatr.databinding.ActivityLoginBinding
+import com.example.donatr.summary.SummaryActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +33,23 @@ class LoginActivity : AppCompatActivity() {
 
     fun registerUser() {
         if (isFormValid()) {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                binding.etEmail.text.toString(),
-                binding.etPassword.text.toString()
+            val authInstance = FirebaseAuth.getInstance()
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            authInstance.createUserWithEmailAndPassword(
+                email, password
             ).addOnSuccessListener {
+
+                val newUser = User(
+                    it.user!!.uid,
+                    email,
+                )
+
+                FirestoreAdapter(this).addToCollection(
+                    FirestoreAdapter.COLLECTION_USERS,
+                    newUser
+                )
+
                 Toast.makeText(
                     this,
                     "Registration OK",
@@ -47,7 +65,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
     fun loginUser() {
         if (isFormValid()) {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(
@@ -60,8 +77,8 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
 
-                startActivity(Intent(this, MainActivity::class.java))
-
+//                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, SummaryActivity::class.java))
             }.addOnFailureListener{
                 Toast.makeText(
                     this,
@@ -71,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     fun isFormValid(): Boolean {
         return when {
