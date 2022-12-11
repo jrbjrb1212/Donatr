@@ -73,5 +73,8 @@ class SummaryActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         snapshotListener?.remove()
+        binding.fab.setOnClickListener{
+            finish()
+        }
     }
 }
