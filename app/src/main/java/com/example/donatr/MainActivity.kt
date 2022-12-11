@@ -16,6 +16,9 @@ import com.example.donatr.summary.MoreInfoDialog
 import com.example.donatr.summary.SummaryActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.runBlocking
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+
 
 class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
@@ -23,11 +26,13 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     private lateinit var binding: ActivityMainBinding
 
     private var charities: MutableList<Charity> = mutableListOf()
+
     private var charityIds: MutableList<String> = mutableListOf()
     private var charityIndex = 0
 
     // Current User Information
     private var uid = FirebaseAuth.getInstance().currentUser!!.uid
+
 
     var x2 : Float = 0.0f
     var x1 : Float = 0.0f
@@ -156,6 +161,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             // right swipe
             // TODO: Add right swipe functionality
             if (x2 > x1){
+                if (sufficientFundCheck()) rightAnimation()
                 val withUpdateBalance = true
                 updateCardDetails(withUpdateBalance)
                 //TODO remove before submitting final project
@@ -164,8 +170,10 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             // left swipe
             // TODO: Add left swipe functionality
             else{
+                if (sufficientFundCheck()) leftAnimation()
                 val withUpdateBalance = false
                 updateCardDetails(withUpdateBalance)
+                //TODO remove before submitting final project
                 Toast.makeText(this, "Left Swipe", Toast.LENGTH_SHORT).show()
             }
         }
@@ -176,7 +184,42 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
+    private fun rightAnimation() {
+        val swipeAnimation = TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            1.5f,
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            0f
+        )
+
+        swipeAnimation.duration = 500
+
+        binding.cardView.startAnimation(swipeAnimation)
+    }
+
+    private fun leftAnimation() {
+        val swipeAnimation = TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            -1.5f,
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            0f
+        )
+
+        swipeAnimation.duration = 500
+
+        binding.cardView.startAnimation(swipeAnimation)
+    }
+
     private fun onDownSwipe() {
+        // TODO remove toast before submission
         Toast.makeText(this, "Down Swipe", Toast.LENGTH_LONG).show()
         val infoDialog = MoreInfoDialog()
         infoDialog.show(supportFragmentManager, "More Info Dialog")
@@ -203,6 +246,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         // TODO: add firebase support to get the next charity information
         // TODO: charityObject is the data object for this
         if (sufficientFundCheck()){
+            Log.d("qwer", "qaz")
             if (withUpdateBalance) {
                 changeUserBalance(available_balance - swipeCost)
                 binding.tvBalance.text = "$ $available_balance"
