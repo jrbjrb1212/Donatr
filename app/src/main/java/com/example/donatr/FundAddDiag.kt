@@ -34,9 +34,10 @@ class FundAddDiag (private val contextType : String) : DialogFragment() {
 
         positiveButton.setOnClickListener {
             if (!checkView()){
-                MainActivity.available_balance += fundAddFundsDiagBinding.moneyAddTxt.text.substring(2).toDouble()
-                (context as MainActivity).updateShown()
+                (context as MainActivity).changeUserBalance(MainActivity.available_balance
+                        + fundAddFundsDiagBinding.moneyAddTxt.text.substring(2).toDouble())
                 dialog.dismiss()
+                (context as MainActivity).updateShown()
             }
         }
     }
