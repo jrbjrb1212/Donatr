@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:backgroundTint="#EFEBE5"
     android:layout_margin="10dp"
     card_view:cardCornerRadius="4dp">
 
     <LinearLayout
+        android:background="#EFEBE5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -20,19 +22,22 @@
             android:id="@+id/tvUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"/>
+            android:text="Username"
+            android:textColor="#344960" />
 
         <TextView
             android:id="@+id/tvCharity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Charity"/>
+            android:text="Charity"
+            android:textColor="#344960" />
 
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Amount"/>
+            android:text="Amount"
+            android:textColor="#344960"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
