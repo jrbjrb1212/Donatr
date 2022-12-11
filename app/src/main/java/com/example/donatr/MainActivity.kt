@@ -10,6 +10,7 @@ import com.example.donatr.databinding.ActivityMainBinding
 import android.widget.Toast;
 import com.example.donatr.adapter.FirestoreAdapter
 import com.example.donatr.data.Charity
+import com.example.donatr.data.Transaction
 import com.example.donatr.data.User
 import com.example.donatr.summary.MoreInfoDialog
 import com.example.donatr.summary.SummaryActivity
@@ -25,7 +26,13 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     private lateinit var binding: ActivityMainBinding
 
     private var charities: MutableList<Charity> = mutableListOf()
+
+    private var charityIds: MutableList<String> = mutableListOf()
     private var charityIndex = 0
+
+    // Current User Information
+    private var uid = FirebaseAuth.getInstance().currentUser!!.uid
+
 
     var x2 : Float = 0.0f
     var x1 : Float = 0.0f
@@ -73,12 +80,12 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     }
 
     fun getCharities() {
-        Log.d("qwer", "getChar")
         FirestoreAdapter(this).getCollection(
             FirestoreAdapter.COLLECTION_CHARITIES
         )!!.get()
             .addOnSuccessListener {
                 it.documents.forEach{
+                    charityIds.add(it.id)
                     charities.add(it.toObject(Charity::class.java)!!)
                 }
 
@@ -87,7 +94,6 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     }
 
     fun updateUserBalance() {
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
         FirestoreAdapter(this).getCollection(
             FirestoreAdapter.COLLECTION_USERS
         )!!.whereEqualTo("uid", uid).get()
@@ -98,7 +104,6 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     }
 
     fun changeUserBalance(newBalance: Double) {
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
         val collection = FirestoreAdapter(this).getCollection(
             FirestoreAdapter.COLLECTION_USERS
         )!!
@@ -245,6 +250,17 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             if (withUpdateBalance) {
                 changeUserBalance(available_balance - swipeCost)
                 binding.tvBalance.text = "$ $available_balance"
+
+                val newTransaction = Transaction(
+                    uid,
+                    charityIds[charityIndex],
+                    swipeCost.toString()
+                )
+
+                FirestoreAdapter(this).addToCollection(
+                    FirestoreAdapter.COLLECTION_TRANCS,
+                    newTransaction
+                )
             }
 
             charityIndex  = (charityIndex + 1) % charities.size
