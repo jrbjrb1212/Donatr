@@ -24,7 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#DDC9BD">
+            android:background="#D8D2CE">
 
             <ImageView
                 android:id="@+id/charityPic"
