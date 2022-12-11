@@ -10,6 +10,9 @@ import android.widget.Toast;
 import com.example.donatr.summary.MoreInfoDialog
 import com.example.donatr.summary.SummaryActivity
 import kotlinx.coroutines.runBlocking
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+
 
 class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     companion object {
         const val MIN_DISTANCE = 150
-        var available_balance: Double = 0.0
+        var available_balance: Double = 5.0
         var swipeCost = 1
     }
 
@@ -104,6 +107,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             // right swipe
             // TODO: Add right swipe functionality
             if (x2 > x1){
+                if (sufficientFundCheck()) rightAnimation()
                 val withUpdateBalance = true
                 updateCardDetails(withUpdateBalance)
                 //TODO remove before submitting final project
@@ -112,8 +116,10 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             // left swipe
             // TODO: Add left swipe functionality
             else{
+                if (sufficientFundCheck()) leftAnimation()
                 val withUpdateBalance = false
                 updateCardDetails(withUpdateBalance)
+                //TODO remove before submitting final project
                 Toast.makeText(this, "Left Swipe", Toast.LENGTH_SHORT).show()
             }
         }
@@ -124,7 +130,42 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
         }
     }
 
+    private fun rightAnimation() {
+        val swipeAnimation = TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            1.5f,
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            0f
+        )
+
+        swipeAnimation.duration = 500
+
+        binding.cardView.startAnimation(swipeAnimation)
+    }
+
+    private fun leftAnimation() {
+        val swipeAnimation = TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            -1.5f,
+            Animation.RELATIVE_TO_SELF,
+            0f,
+            Animation.RELATIVE_TO_SELF,
+            0f
+        )
+
+        swipeAnimation.duration = 500
+
+        binding.cardView.startAnimation(swipeAnimation)
+    }
+
     private fun onDownSwipe() {
+        // TODO remove toast before submission
         Toast.makeText(this, "Down Swipe", Toast.LENGTH_LONG).show()
         val infoDialog = MoreInfoDialog()
         infoDialog.show(supportFragmentManager, "More Info Dialog")
