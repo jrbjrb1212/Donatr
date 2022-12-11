@@ -64,15 +64,21 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
             fundAddDialog("Please add funds below")
         }
 
-
         binding.btnMore.setOnClickListener{
             onDownSwipe()
         }
 
-
         binding.btnTransHist.setOnClickListener {
             val intent = Intent(applicationContext, SummaryActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.fabSwipeLeft.setOnClickListener{
+            leftSwipe()
+        }
+
+        binding.fabSwipeRight.setOnClickListener{
+            rightSwipe()
         }
     }
 
@@ -172,7 +178,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     private fun leftSwipe() {
         if (sufficientFundCheck()) leftAnimation()
 
-        Timer("Update", true).schedule(300){
+        Timer("Update", true).schedule(200){
             runOnUiThread{
                 val withUpdateBalance = false
                 updateCardDetails(withUpdateBalance)
@@ -184,7 +190,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     private fun rightSwipe() {
         if (sufficientFundCheck()) rightAnimation()
-        Timer("Update", true).schedule(300){
+        Timer("Update", true).schedule(200){
             runOnUiThread{
                 val withUpdateBalance = true
                 updateCardDetails(withUpdateBalance)
