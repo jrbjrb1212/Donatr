@@ -52,13 +52,13 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(
                     this,
-                    "Registration OK",
+                    getString(R.string.succesfulRegistration),
                     Toast.LENGTH_LONG
                 ).show()
             }.addOnFailureListener{
                 Toast.makeText(
                     this,
-                    "Error: ${it.message}",
+                    getString(R.string.Error) + "${it.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
             ).addOnSuccessListener {
                 Toast.makeText(
                     this,
-                    "Login OK",
+                    getString(R.string.loginOK),
                     Toast.LENGTH_LONG
                 ).show()
 
@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
             }.addOnFailureListener{
                 Toast.makeText(
                     this,
-                    "Error: ${it.message}",
+                    getString(R.string.Error) + "${it.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -92,11 +92,11 @@ class LoginActivity : AppCompatActivity() {
     fun isFormValid(): Boolean {
         return when {
             binding.etEmail.text.isEmpty() -> {
-                binding.etEmail.error = "This field can not be empty"
+                binding.etEmail.error = getString(R.string.nonemptyFieldErrormsg)
                 false
             }
             binding.etPassword.text.isEmpty() -> {
-                binding.etPassword.error = "The password can not be empty"
+                binding.etPassword.error = getString(R.string.nonemptyPasswordErrormsg)
                 false
             }
             else -> true

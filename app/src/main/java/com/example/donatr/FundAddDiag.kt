@@ -42,22 +42,24 @@ class FundAddDiag (private val contextType : String) : DialogFragment() {
         }
     }
 
+    private fun resetView() {
+        fundAddFundsDiagBinding.moneyAddTxt.setText(getString(R.string.dollarSign))
+        fundAddFundsDiagBinding.moneyAddTxt.error = getString(R.string.validAmtPrompt)
+    }
+
     private fun checkView(): Boolean{
         fundAddFundsDiagBinding.paymentContextMsg
         try{
             if (fundAddFundsDiagBinding.moneyAddTxt.text.isEmpty() || fundAddFundsDiagBinding.moneyAddTxt.length() < 3) {
-                fundAddFundsDiagBinding.moneyAddTxt.setText("$ ")
-                fundAddFundsDiagBinding.moneyAddTxt.error = "Please enter a valid amount of money"
+                resetView()
                 return true
             } else if (fundAddFundsDiagBinding.moneyAddTxt.text.substring(0,2) != "$ " ||
                 fundAddFundsDiagBinding.moneyAddTxt.text.substring(2).toDouble() < 0 ){
-                fundAddFundsDiagBinding.moneyAddTxt.setText("$ ")
-                fundAddFundsDiagBinding.moneyAddTxt.error = "Please enter a valid amount of money"
+                resetView()
                 return true
             }
         } catch (e : Exception){
-            fundAddFundsDiagBinding.moneyAddTxt.setText("$ ")
-            fundAddFundsDiagBinding.moneyAddTxt.error = "Please enter a valid amount of money"
+            resetView()
         }
 
         return false

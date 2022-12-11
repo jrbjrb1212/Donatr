@@ -1,7 +1,6 @@
 package com.example.donatr.summary
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.donatr.R
@@ -53,7 +52,7 @@ class SummaryActivity : AppCompatActivity() {
                                  e: FirebaseFirestoreException?) {
                 if (e != null) {
                     Toast.makeText(
-                        this@SummaryActivity, "Error: ${e.message}",
+                        this@SummaryActivity, getString(R.string.Error)+ "${e.message}",
                         Toast.LENGTH_LONG
                     ).show()
                     return

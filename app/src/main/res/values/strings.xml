@@ -99,4 +99,40 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="addFundsBasic">Please add funds below</string>
+    <string name="addFundsBasicv2">Add Funds</string>
+    <string name="dollarSign">"$ "</string>
+    <string name="LeftSwipe">Left Swipe</string>
+    <string name="RightSwipe">Right Swipe</string>
+    <string name="MoreInfoDiag">More Info Dialog</string>
+    <string name="addFundsAdvanced">Insufficient funds detected. Please add additional funds to continue donating.</string>
+    <string name="Error">"Error: "</string>
+    <string name="NYC">New York City</string>
+    <string name="validAmtPrompt">Please enter a valid amount of money</string>
+    <string name="succesfulRegistration">Registration OK</string>
+    <string name="loginOK">Login OK</string>
+    <string name="nonemptyFieldErrormsg">This field can not be empty</string>
+    <string name="nonemptyPasswordErrormsg">The password can not be empty</string>
+    <string name="email">email</string>
+    <string name="lus2_carleton_edu">lus2@carleton.edu</string>
+    <string name="password">Password</string>
+    <string name="_123456">123456</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="here_is_the_charity_name">Here is the Charity Name</string>
+    <string name="type_of_charity">Type of charity</string>
+    <string name="short_1_sentence_description">Short 1 sentence description</string>
+    <string name="more">More</string>
+    <string name="account_balance">Account Balance</string>
+    <string name="add_funds">Add Funds</string>
+    <string name="transactions">Transactions</string>
+    <string name="context_message">Context Message</string>
+    <string name="please_enter_an_amount_of_money_to_add_to_your_account">Please enter an amount of money to add to your account</string>
+    <string name="enter_money_here">Enter Money here</string>
+    <string name="money_available">Money Available: $</string>
+    <string name="charity">Charity</string>
+    <string name="location">Location</string>
+    <string name="long_description">Long description</string>
+    <string name="username">Username</string>
+    <string name="amount">Amount</string>
 </resources>

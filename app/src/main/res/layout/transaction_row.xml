@@ -22,21 +22,21 @@
             android:id="@+id/tvUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="@string/username"
             android:textColor="#344960" />
 
         <TextView
             android:id="@+id/tvCharity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Charity"
+            android:text="@string/charity"
             android:textColor="#344960" />
 
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Amount"
+            android:text="@string/amount"
             android:textColor="#344960"
             android:textStyle="bold" />
     </LinearLayout>
