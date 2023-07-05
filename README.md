@@ -1,7 +1,7 @@
 ## Donatr
 Donatr is an android mobile application that enables a simulated experience of donating to charities by **simply swiping left or right.**
 
-<p align="center"><img width="600" src="https://github.com/jrbjrb1212/Donatr/blob/readme_pics/Logo.png?raw=true"></p>
+<p align="center"><img width="600" src="https://github.com/jrbjrb1212/Donatr/blob/main/readme_pics/Logo.png?raw=true"></p>
 <!-- <p align="center"><img width="600" src="readme_pics/Logo.png?raw=true"></p> -->
 
 
@@ -16,14 +16,14 @@ In 2020, Nigeria had a nominal gross domestic product (GDP) of $429 billion. The
 Donatr is a proof of concept that hopes to modernize the charitable giving process. Donatr has the functionality to allow users to simulate donating to charities by simply swiping left or right.
 
 ## Check Out This UI
-<p align="center"><img width="600" src="https://github.com/jrbjrb1212/Donatr/blob/readme_pics/Demo.png?raw=true"></p>
+<p align="center"><img width="200" src="https://github.com/jrbjrb1212/Donatr/blob/main/readme_pics/Demo.png?raw=true"></p>
 <!-- <p align="center"><img width="200" src="readme_pics/Demo.png?raw=true"></p> -->
 
 Similar to the functionality of popular dating mobile app Tinder, Donatr implements a **swipe by card interface**. A user sees one card at a time. Each card contains a logo of the charitable organization, the organization's name, and a short bio of the organization. The **user may review** the card and decided to **swipe left or right**. Swiping left does not initiate a donation and brings up another card. Swiping right initiates a donation and brings up another card. For accessibility, the user also allows for a on tap and on hover feature for saying yes or no to a given charity. These features are available in the bottom portion of the UI under the card. The **application tracks recent transactions** by the user and allows the user to upload more funds.
 
 
 ## Application Architecture
-<p align="center"><img width="600" src="https://github.com/jrbjrb1212/Donatr/blob/readme_pics/Architecture.png?raw=true"></p>
+<p align="center"><img width="600" src="https://github.com/jrbjrb1212/Donatr/blob/main/readme_pics/Architecture.png?raw=true"></p>
 <!-- <p align="center"><img width="600" src="readme_pics/Architecture.png?raw=true"></p> -->
 
 Donatr's application architecture is simplified into the design above. The UI and application logic are created in [Kotlin](https://github.com/JetBrains/kotlin) within [Android Studio](https://developer.android.com/studio). Any data relevant to the user or the charities is stored in the [Firebase backend](https://firebase.google.com/). Firebase's free tier is perfect for this proof of concept application. The Glide library is used to make web requests to the web images stored on the internet. Charitable organization logo pictures are big far the largest data element for this application. To reduce the overall storage footprint, the [Glide library](https://github.com/bumptech/glide) makes a web request to an image url.
