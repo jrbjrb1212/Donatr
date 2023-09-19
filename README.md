@@ -67,4 +67,4 @@ As already stated, this version of Donatr is a proof of concept for creating an 
 
 
 
-Thank you for the taking the time to check out this[project](https://www.youtube.com/watch?v=dQw4w9WgXcQ)! 
+Thank you for the taking the time to check out this [project](https://www.youtube.com/watch?v=dQw4w9WgXcQ)! 
